@@ -8,8 +8,14 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="musicBean"
-          class="org.example.PopMusic">
+          class="org.example.RockMusic">
 <!--        <constructor-arg value="Dmitrii"/>-->
+    </bean>
+
+<!--    Мы передаем в конструктор ID или ссылку на существующий bean-->
+    <bean id="musicPlayer"
+          class="org.example.MusicPlayer">
+        <constructor-arg ref="musicBean"/>
     </bean>
 
 </beans>

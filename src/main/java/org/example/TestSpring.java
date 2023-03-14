@@ -8,14 +8,11 @@ public class TestSpring {
                 "applicationContext.xml"
         );
 
+//        Внедрение зависимости с помощью конструктора
 //        Music music = context.getBean("musicBean", Music.class);
-//
 //        MusicPlayer musicPlayer = new MusicPlayer(music);
-//
-//        musicPlayer.playMusic();
 
-        Music music = context.getBean("musicBean", Music.class);
-        MusicPlayer musicPlayer = new MusicPlayer(music);
+        MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
         musicPlayer.playMusic();
 
         context.close();
