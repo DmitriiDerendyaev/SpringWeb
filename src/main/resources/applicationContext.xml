@@ -12,10 +12,10 @@
 <!--        <constructor-arg value="Dmitrii"/>-->
     </bean>
 
-<!--    Мы передаем в конструктор ID или ссылку на существующий bean-->
+<!--    Мы передаем в setter ID или ссылку на существующий bean-->
     <bean id="musicPlayer"
           class="org.example.MusicPlayer">
-        <constructor-arg ref="musicBean"/>
+        <property name="music" ref="musicBean"/>
     </bean>
 
 </beans>
