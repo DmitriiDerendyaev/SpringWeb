@@ -154,3 +154,21 @@ Take on Me
 Take on Me
 Classical music was destroyed
 ```
+
+## lesson 9
+- работа с аннотациями вместо XML
+- аннотация `@Component` над самим классом
+- необходимо включить сканирование классов `<context:component-scan base-package="org.example"/>` - это все, что теперь есть в XML
+- `@Component("musicBean")`, тогда id бина "musicBean", если без параметра аннотации, то имя класса с маленькой буквы
+Получение бинов:
+```java
+        Music music = context.getBean("musicBean", Music.class);
+        MusicPlayer musicPlayer = new MusicPlayer(music);
+
+        musicPlayer.playMusic();
+
+        Music music2 = context.getBean("popMusic", Music.class);
+        MusicPlayer musicPlayer2 = new MusicPlayer(music2);
+
+        musicPlayer2.playMusic();
+```
