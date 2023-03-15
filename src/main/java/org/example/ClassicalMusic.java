@@ -7,11 +7,11 @@ public class ClassicalMusic implements Music{
         return new ClassicalMusic();
     }
     public void doMyInit(){
-        System.out.println("Do my initialization");
+        System.out.println("Initialized Classical music");
     }
 
     public void doMyDestroy(){
-        System.out.println("Bean was destroyed");
+        System.out.println("Classical music was destroyed");
     }
     @Override
     public String getSong() {
