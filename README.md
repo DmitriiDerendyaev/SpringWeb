@@ -122,3 +122,35 @@ public static ClassicalMusic getClassicalMusic(){
     }
 ```
 И указать в applicationContext.xml `factory-method="getClassicalMusic"`
+
+- ДЗ:
+  - Spring не берет на себя управление жизненным циклом бинов при scope=prototype
+  - Изменить Scope с singleton на prototype и изучить вывод
+  - Получить несколько бинов.
+
+Если мы используем несколько бинов и применяем к ним scope prototype, то init-method вызывается несколько раз, а destroy-method не вызывается вообще:
+```java
+        ClassicalMusic classicalMusic = context.getBean("musicBean", ClassicalMusic.class);
+        ClassicalMusic classicalMusic1 = context.getBean("musicBean", ClassicalMusic.class);
+        System.out.println(classicalMusic.getSong());
+        System.out.println(classicalMusic1.getSong());
+
+        System.out.println("\n\n");
+
+        PopMusic popMusic = context.getBean("popBean", PopMusic.class);
+        PopMusic popMusic1 = context.getBean("popBean", PopMusic.class);
+        System.out.println(popMusic.getSong());
+        System.out.println(popMusic1.getSong());
+```
+Тогда вывод будет:
+```java
+Initialized Classical music
+Hungarian Rhapsody
+Hungarian Rhapsody
+        
+Initialized Pop music
+Initialized Pop music
+Take on Me
+Take on Me
+Classical music was destroyed
+```
