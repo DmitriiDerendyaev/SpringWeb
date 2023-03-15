@@ -214,3 +214,24 @@ private ClassicalMusic classicalMusic;
 ```
 
 ВАЖНО: выбирать можно любой способ внедрения зависимостей: setter, constructor, field - они все имеют одинаковую эффективность и реализацию
+
+## lesson 11
+- решение проблемы внедрение нескольких зависимостей 
+
+Есть несколько вариантов конфигурации:
+- Внедрение зависимости `@Autowired` и уточнение `@Qualifier` через поля:
+  ```java
+  @Autowired
+  @Qualifier("classicalMusic")
+  private Music music;
+  ```
+- Внедрение зависимости `@Autowired` и уточнение `@Qualifier` через конструктор:
+  ```java
+  private  Music music1;
+      private  Music music2;
+  
+      public MusicPlayer(@Qualifier("rockMusic") Music music1,@Qualifier("classicalMusic") Music music2) {
+          this.music1 = music1;
+          this.music2 = music2;
+      }
+  ```
