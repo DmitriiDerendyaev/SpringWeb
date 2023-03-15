@@ -6,33 +6,6 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
-    <context:property-placeholder location="musicPlayer.properties"/>
 
-    <bean id="popBean"
-          class="org.example.PopMusic"
-          init-method="initClassic"
-          destroy-method="destroyClassic"
-          factory-method="getPopMusic"
-          scope="prototype"
-          >
-    </bean>
-
-    <bean id="musicBean"
-          class="org.example.ClassicalMusic"
-          init-method="doMyInit"
-          destroy-method="doMyDestroy"
-          factory-method="getClassicalMusic"
-    >
-    </bean>
-
-<!--    Мы передаем в setter ID или ссылку на существующий bean-->
-<!--    <bean id="musicPlayer"-->
-<!--          class="org.example.MusicPlayer"-->
-<!--    scope="prototype">-->
-<!--        <property name="musicList" ref="musicBean"/>-->
-
-<!--        <property name="name" value="${musicPlayer.name}"/>-->
-<!--        <property name="volume" value="${musicPlayer.volume}"/>-->
-<!--    </bean>-->
-
+    <context:component-scan base-package="org.example"/>
 </beans>

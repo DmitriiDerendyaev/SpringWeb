@@ -155,3 +155,83 @@ Take on Me
 Classical music was destroyed
 ```
 
+## lesson 9
+- работа с аннотациями вместо XML
+- аннотация `@Component` над самим классом
+- необходимо включить сканирование классов `<context:component-scan base-package="org.example"/>` - это все, что теперь есть в XML
+- `@Component("musicBean")`, тогда id бина "musicBean", если без параметра аннотации, то имя класса с маленькой буквы
+Получение бинов:
+```java
+        Music music = context.getBean("musicBean", Music.class);
+        MusicPlayer musicPlayer = new MusicPlayer(music);
+
+        musicPlayer.playMusic();
+
+        Music music2 = context.getBean("popMusic", Music.class);
+        MusicPlayer musicPlayer2 = new MusicPlayer(music2);
+
+        musicPlayer2.playMusic();
+```
+
+## lesson 10 
+- Spring аннотации, dependency injection
+- `@Autowired` позволяет создавать зависимости DI 
+```java
+@Autowired
+    public MusicPlayer(ClassicalMusic classicalMusic){
+        this.classicalMusic = classicalMusic;
+    }
+```
+И тогда при создании musicPlayer можно обходиться без инициализации, т.к. мы обращаемс по id к MusicPlayer, где уже проинициализирована с помощью `@Autowired` ClassicalMusic
+
+Также в MusicPlayer можно вносить объекты классов, реализуемые от интерфейса Music
+
+В случае, если MusicPlayer имеет реализацию для всех объектов по интерфейсу Music, а `@Component` будет у нескольких классов при Music, то может возникнуть неоднозначность и будет выброшена ошибка.
+Например: 
+```
+No qualifying bean of type 'org.example.Music' available: expected single matching bean but found 3: classicalMusic,popMusic,rockMusic
+```
+
+- Убираем лишние `@Component` и при изменении способа внедрения зависимости через SETTER или через CONSTRUCTOR именно аннотация `@Autowired` указывает на то, через какой метод будет внедряться зависимость
+
+- Можно внедрять зависимости даже в ПРИВАТНЫЕ ПОЛЯ:
+```java
+    @Autowired
+    private Music music; //применен интерфейс музыка
+```
+
+### Внедрение нескольких зависимостей
+- Просто создаем в MusicPlayer объекты классов, у которых включен `@Component` и прописываем КОНСТРУКТОР
+```java
+private ClassicalMusic classicalMusic;
+    private RockMusic rockMusic;
+
+    @Autowired
+    public MusicPlayer(ClassicalMusic classicalMusic, RockMusic rockMusic) {
+        this.classicalMusic = classicalMusic;
+        this.rockMusic = rockMusic;
+    }
+```
+
+ВАЖНО: выбирать можно любой способ внедрения зависимостей: setter, constructor, field - они все имеют одинаковую эффективность и реализацию
+
+## lesson 11
+- решение проблемы внедрение нескольких зависимостей 
+
+Есть несколько вариантов конфигурации:
+- Внедрение зависимости `@Autowired` и уточнение `@Qualifier` через поля:
+  ```java
+  @Autowired
+  @Qualifier("classicalMusic")
+  private Music music;
+  ```
+- Внедрение зависимости `@Autowired` и уточнение `@Qualifier` через конструктор:
+  ```java
+  private  Music music1;
+      private  Music music2;
+  
+      public MusicPlayer(@Qualifier("rockMusic") Music music1,@Qualifier("classicalMusic") Music music2) {
+          this.music1 = music1;
+          this.music2 = music2;
+      }
+  ```
