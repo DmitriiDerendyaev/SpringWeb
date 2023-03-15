@@ -235,3 +235,46 @@ private ClassicalMusic classicalMusic;
           this.music2 = music2;
       }
   ```
+  
+ДЗ:
+- Создать список песен для двух классов RockMusic, ClassicalMusic
+```java
+List<String> listClassical = new ArrayList<>(Arrays.asList("Swan Lake: Spanish Dance", "Palladio", "The four seasons"));
+```
+```java
+ List<String> listRock = new ArrayList<>(Arrays.asList("Compromise", "No one writes to the colonel", "Smells like teen spirit"));
+```
+
+- В классе PlayerMusic внедрить бины 
+```java
+    private Music rockMusic;
+    private Music classicalMusic;
+
+    public MusicPlayer(@Qualifier("rockMusic") Music music1, @Qualifier("classicalMusic") Music music2) {
+        this.rockMusic = music1;
+        this.classicalMusic = music2;
+    }
+```
+- Реализовать Enum - CLASSICAL, ROCK
+```java
+public enum MusicGenre {
+    CLASSICAL, ROCK
+}
+```
+- PlayerMusic принимает на вход `Enum`, и через `Random` выводит случайную песню из списка
+```java
+public void playMusic(MusicGenre genre) {
+        Random random = new Random();
+
+        int randomNumber = random.nextInt(3);
+
+        if (genre == MusicGenre.CLASSICAL) {
+            // случайная классическая песня
+            System.out.println(classicalMusic.getSong().get(randomNumber));
+        } else {
+            // случайная рок песня
+            System.out.println(rockMusic.getSong().get(randomNumber));
+        }
+    }
+```
+- В TestSpring получить бин musicPlayer и вывести на экран содержимое

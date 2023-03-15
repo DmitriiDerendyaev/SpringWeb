@@ -1,6 +1,7 @@
 package org.example;
 
-import org.springframework.stereotype.Component;
+import java.util.Collections;
+import java.util.List;
 
 //@Component
 public class PopMusic implements Music{
@@ -20,7 +21,7 @@ public class PopMusic implements Music{
 
 
     @Override
-    public String getSong() {
-        return "Take on Me";
+    public List<String> getSong() {
+        return Collections.singletonList("Take on Me");
     }
 }
