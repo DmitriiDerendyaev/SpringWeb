@@ -193,4 +193,24 @@ No qualifying bean of type 'org.example.Music' available: expected single matchi
 ```
 
 - Убираем лишние `@Component` и при изменении способа внедрения зависимости через SETTER или через CONSTRUCTOR именно аннотация `@Autowired` указывает на то, через какой метод будет внедряться зависимость
-- 
+
+- Можно внедрять зависимости даже в ПРИВАТНЫЕ ПОЛЯ:
+```java
+    @Autowired
+    private Music music; //применен интерфейс музыка
+```
+
+### Внедрение нескольких зависимостей
+- Просто создаем в MusicPlayer объекты классов, у которых включен `@Component` и прописываем КОНСТРУКТОР
+```java
+private ClassicalMusic classicalMusic;
+    private RockMusic rockMusic;
+
+    @Autowired
+    public MusicPlayer(ClassicalMusic classicalMusic, RockMusic rockMusic) {
+        this.classicalMusic = classicalMusic;
+        this.rockMusic = rockMusic;
+    }
+```
+
+ВАЖНО: выбирать можно любой способ внедрения зависимостей: setter, constructor, field - они все имеют одинаковую эффективность и реализацию
