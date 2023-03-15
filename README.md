@@ -172,3 +172,25 @@ Classical music was destroyed
 
         musicPlayer2.playMusic();
 ```
+
+## lesson 10 
+- Spring аннотации, dependency injection
+- `@Autowired` позволяет создавать зависимости DI 
+```java
+@Autowired
+    public MusicPlayer(ClassicalMusic classicalMusic){
+        this.classicalMusic = classicalMusic;
+    }
+```
+И тогда при создании musicPlayer можно обходиться без инициализации, т.к. мы обращаемс по id к MusicPlayer, где уже проинициализирована с помощью `@Autowired` ClassicalMusic
+
+Также в MusicPlayer можно вносить объекты классов, реализуемые от интерфейса Music
+
+В случае, если MusicPlayer имеет реализацию для всех объектов по интерфейсу Music, а `@Component` будет у нескольких классов при Music, то может возникнуть неоднозначность и будет выброшена ошибка.
+Например: 
+```
+No qualifying bean of type 'org.example.Music' available: expected single matching bean but found 3: classicalMusic,popMusic,rockMusic
+```
+
+- Убираем лишние `@Component` и при изменении способа внедрения зависимости через SETTER или через CONSTRUCTOR именно аннотация `@Autowired` указывает на то, через какой метод будет внедряться зависимость
+- 
