@@ -32,8 +32,12 @@ MusicPlayer musicPlayer = new MusicPlayer(music);
 - Работа над **Dependency Injection**(Внедрение зависимостей) через SETTER
 - В классе MusicPlayer добавлен сеттер и конструтор по умолчанию
 - Соттвестванно изменены `<constructor-arg ref="musicBean"/>` на `<property name="music" ref="musicBean"/>`
-- ВАЖНО: здесь все еще внедряется ссылочное значение
-- ![img.png](mdResourses/2.png)
+- ВАЖНО: здесь все еще внедряется ссылочное значение 
+- Передача параетров в setter, назначение атрибутов через DI
+![img.png](mdResourses/2.png)
+  - ДЗ:
+  - 
+
 
 
 
