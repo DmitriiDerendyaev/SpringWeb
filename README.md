@@ -278,3 +278,43 @@ public void playMusic(MusicGenre genre) {
     }
 ```
 - В TestSpring получить бин musicPlayer и вывести на экран содержимое
+
+## lesson 12
+- Аннотация `@Value`
+```java
+    @Value("${musicPlayer.name}")
+    private String name;
+    @Value("${musicPlayer.volume}")
+    private int volume;
+
+    public String getName() {
+        return name;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+```
+- Аннотация `@Scope("prototype")`
+- Методы init/destroy
+```java
+    @PostConstruct
+    public void doMyInit(){
+        System.out.println("Classical music was initialization");
+    }
+
+    @PreDestroy
+    public void doMyDestroy(){
+        System.out.println("Classical music was destroyed");
+    }
+```
+
+ВАЖНО: методы init/destroy не работают в Java 11+
+Нужно пописать зависимость:
+```java
+<dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+```
