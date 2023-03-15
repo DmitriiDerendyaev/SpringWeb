@@ -9,17 +9,21 @@
     <context:property-placeholder location="musicPlayer.properties"/>
 
     <bean id="musicBean"
-          class="org.example.RockMusic">
+          class="org.example.ClassicalMusic"
+          init-method="doMyInit"
+          destroy-method="doMyDestroy"
+          factory-method="getClassicalMusic"
+    >
     </bean>
 
 <!--    Мы передаем в setter ID или ссылку на существующий bean-->
-    <bean id="musicPlayer"
-          class="org.example.MusicPlayer"
-    scope="prototype">
-        <property name="musicList" ref="musicBean"/>
+<!--    <bean id="musicPlayer"-->
+<!--          class="org.example.MusicPlayer"-->
+<!--    scope="prototype">-->
+<!--        <property name="musicList" ref="musicBean"/>-->
 
-        <property name="name" value="${musicPlayer.name}"/>
-        <property name="volume" value="${musicPlayer.volume}"/>
-    </bean>
+<!--        <property name="name" value="${musicPlayer.name}"/>-->
+<!--        <property name="volume" value="${musicPlayer.volume}"/>-->
+<!--    </bean>-->
 
 </beans>

@@ -75,5 +75,50 @@ MusicPlayer firstMusicPlayer = context.getBean("musicPlayer", MusicPlayer.class)
         System.out.println(firstMusicPlayer.getVolume());
         System.out.println(secondMusicPlayer.getVolume());
 ```
+Получится вывод:
+```agsl
+false
+org.example.MusicPlayer@3ce1e309
+org.example.MusicPlayer@6aba2b86
+5500
+100
+```
 
+## lesson 8
+- жизненный цикл метода выглядит так:
+![img.png](mdResourses/3.png)
+- init-method
+  - инициализаци ресурсов, подключение к БД, обращение к внешним файлм
+- destroy-method
+  - очищение ресурсов, зачистка и закрытие потоков ввода-вывода
 
+Описание работы с методами:
+- Мы можем сами создать методы инициализации и разрушения. Методы должны быть void, без параметров...
+Инициализируем методы:
+```agsl
+    public void doMyInit(){
+        System.out.println("Do my initialization");
+    }
+
+    public void doMyDestroy(){
+        System.out.println("Bean was destroyed");
+    }
+```
+В applicationContext.xml мы указываем на названия методов:
+```agsl
+<bean id="musicBean"
+          class="org.example.ClassicalMusic"
+          init-method="doMyInit"
+          destroy-method="doMyDestroy"
+    >
+    </bean>
+```
+
+Так же можно использовать паттерн **Factory-method**, который запрещает использование new для создания новых объектов
+- Создаем приватный конструктор `private ClassicalMusic(){}` и публичный статичный метод инициализции объекта:
+```agsl
+public static ClassicalMusic getClassicalMusic(){
+        return new ClassicalMusic();
+    }
+```
+И указать в applicationContext.xml `factory-method="getClassicalMusic"`
