@@ -30,7 +30,7 @@ MusicPlayer musicPlayer = new MusicPlayer(music);
 
 ## lesson 6
 - Работа над **Dependency Injection**(Внедрение зависимостей) через SETTER
-- В классе MusicPlayer добавлен сеттер и конструтор по умолчанию
+- В классе MusicPlayer добавлен сеттер и конструктор по умолчанию
 - Соттвестванно изменены `<constructor-arg ref="musicBean"/>` на `<property name="music" ref="musicBean"/>`
 - ВАЖНО: здесь все еще внедряется ссылочное значение 
 - Передача параетров в setter, назначение атрибутов через DI
@@ -57,6 +57,23 @@ MusicPlayer musicPlayer = new MusicPlayer(music);
     </bean>
 ```
 
+## lesson 7
+- область видимости бинов SCOPE
+- используется паттерн Singleton - тогда разные объекты ссылаются на один
+- при использовании `scope="prototype"` создаются разные объекты, тогда:
+```
+MusicPlayer firstMusicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
+        MusicPlayer secondMusicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
 
+        boolean comparation = firstMusicPlayer == secondMusicPlayer;
+        System.out.println(comparation);
+        System.out.println(firstMusicPlayer);
+        System.out.println(secondMusicPlayer);
+
+        firstMusicPlayer.setVolume(5500);
+
+        System.out.println(firstMusicPlayer.getVolume());
+        System.out.println(secondMusicPlayer.getVolume());
+```
 
 
