@@ -36,7 +36,26 @@ MusicPlayer musicPlayer = new MusicPlayer(music);
 - Передача параетров в setter, назначение атрибутов через DI
 ![img.png](mdResourses/2.png)
   - ДЗ:
-  - 
+    - Добавить Список проигрываемых композиций
+    - Добавить Setter для устновки знчений
+    - Изменить или переопределить метод, выводящий список воспроизводимой музык
+    - Досоздавать классы альтернативной музыки
+    - Внедрить зависимость, передав список
+```agsl
+<bean id="musicPlayer"
+          class="org.example.MusicPlayer">
+        <property name="musicList">
+            <list>
+                <ref bean="musicBean1"/>
+                <ref bean="musicBean2"/>
+                <ref bean="musicBean3"/>
+            </list>
+        </property>
+
+        <property name="name" value="${musicPlayer.name}"/>
+        <property name="volume" value="${musicPlayer.volume}"/>
+    </bean>
+```
 
 
 

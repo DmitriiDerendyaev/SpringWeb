@@ -7,15 +7,27 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
     <context:property-placeholder location="musicPlayer.properties"/>
-    <bean id="musicBean"
+
+    <bean id="musicBean1"
           class="org.example.RockMusic">
-<!--        <constructor-arg value="Dmitrii"/>-->
     </bean>
+    <bean id="musicBean2"
+              class="org.example.ClassicalMusic">
+        </bean>
+    <bean id="musicBean3"
+              class="org.example.PopMusic">
+        </bean>
 
 <!--    Мы передаем в setter ID или ссылку на существующий bean-->
     <bean id="musicPlayer"
           class="org.example.MusicPlayer">
-        <property name="music" ref="musicBean"/>
+        <property name="musicList">
+            <list>
+                <ref bean="musicBean1"/>
+                <ref bean="musicBean2"/>
+                <ref bean="musicBean3"/>
+            </list>
+        </property>
 
         <property name="name" value="${musicPlayer.name}"/>
         <property name="volume" value="${musicPlayer.volume}"/>
