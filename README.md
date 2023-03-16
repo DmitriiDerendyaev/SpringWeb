@@ -348,3 +348,36 @@ public void playMusic(MusicGenre genre) {
   }
 }
 ```
+
+ДЗ:
+- Создан класс JazzMusic, имплементируемый от интерфейса Music
+```java
+public class JazzMusic implements Music{
+
+    @Override
+    public String getSong() {
+        return "What A Wonderful World";
+    }
+}
+```
+- В классе SpringConfig.java добавили бины класса JazzMusic и бин, возвращающий список жанров `GenreList()`:
+```java
+@Bean
+    public JazzMusic jazzMusic(){
+        return new JazzMusic();
+    }
+
+    @Bean
+    public List<Music> genreList(){
+        return Arrays.asList(classicalMusic(), rockMusic(), jazzMusic());
+    }
+```
+- В MusicPlayer изменили реализацию формирования строки с рандомайзером:
+```java
+  public String playMusic(){
+        Random random = new Random();
+
+        return "Playing: " + genreList.get(random.nextInt(genreList.size())).getSong() + " where volume is: " + this.volume;
+    }
+```
+- В классе Te
