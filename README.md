@@ -318,3 +318,33 @@ public void playMusic(MusicGenre genre) {
       <version>1.3.2</version>
     </dependency>
 ```
+
+## lesson 13
+- Конфигурация с помощью Java кода
+- Все варианты конфигурации Spring приложения:
+![img.png](mdResourses/4.png)
+- Удалили файл applicationContext.xml, теперь у нас есть конфигурационный класс SpringConfig.java
+```java
+@Configuration
+//@ComponentScan("org.example")
+@PropertySource("classpath:musicPlayer.properties")
+  public class SpringConfig {
+  @Bean
+  public ClassicalMusic classicalMusic(){
+    return new ClassicalMusic();
+  }
+
+  @Bean
+  public RockMusic rockMusic(){
+    return new RockMusic();
+  }
+  @Bean
+  public MusicPlayer musicPlayer(){
+    return new MusicPlayer(rockMusic(), classicalMusic());
+  }
+
+  @Bean Computer computer(){
+    return new Computer(musicPlayer());
+  }
+}
+```

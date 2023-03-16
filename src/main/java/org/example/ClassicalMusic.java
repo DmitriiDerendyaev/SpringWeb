@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-@Component
-@Scope("prototype")
+//@Component
+//@Scope("prototype")
 public class ClassicalMusic implements Music{
     @PostConstruct
     public void doMyInit(){
