@@ -235,7 +235,7 @@ private ClassicalMusic classicalMusic;
           this.music2 = music2;
       }
   ```
-  
+
 ДЗ:
 - Создать список песен для двух классов RockMusic, ClassicalMusic
 ```java
@@ -245,7 +245,7 @@ List<String> listClassical = new ArrayList<>(Arrays.asList("Swan Lake: Spanish D
  List<String> listRock = new ArrayList<>(Arrays.asList("Compromise", "No one writes to the colonel", "Smells like teen spirit"));
 ```
 
-- В классе PlayerMusic внедрить бины 
+- В классе PlayerMusic внедрить бины
 ```java
     private Music rockMusic;
     private Music classicalMusic;
@@ -278,3 +278,73 @@ public void playMusic(MusicGenre genre) {
     }
 ```
 - В TestSpring получить бин musicPlayer и вывести на экран содержимое
+
+## lesson 12
+- Аннотация `@Value`
+```java
+    @Value("${musicPlayer.name}")
+    private String name;
+    @Value("${musicPlayer.volume}")
+    private int volume;
+
+    public String getName() {
+        return name;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+```
+- Аннотация `@Scope("prototype")`
+- Методы init/destroy
+```java
+    @PostConstruct
+    public void doMyInit(){
+        System.out.println("Classical music was initialization");
+    }
+
+    @PreDestroy
+    public void doMyDestroy(){
+        System.out.println("Classical music was destroyed");
+    }
+```
+
+ВАЖНО: методы init/destroy не работают в Java 11+
+Нужно пописать зависимость:
+```java
+<dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+```
+
+## lesson 13
+- Конфигурация с помощью Java кода
+- Все варианты конфигурации Spring приложения:
+![img.png](mdResourses/4.png)
+- Удалили файл applicationContext.xml, теперь у нас есть конфигурационный класс SpringConfig.java
+```java
+@Configuration
+//@ComponentScan("org.example")
+@PropertySource("classpath:musicPlayer.properties")
+  public class SpringConfig {
+  @Bean
+  public ClassicalMusic classicalMusic(){
+    return new ClassicalMusic();
+  }
+
+  @Bean
+  public RockMusic rockMusic(){
+    return new RockMusic();
+  }
+  @Bean
+  public MusicPlayer musicPlayer(){
+    return new MusicPlayer(rockMusic(), classicalMusic());
+  }
+
+  @Bean Computer computer(){
+    return new Computer(musicPlayer());
+  }
+}
+```

@@ -1,19 +1,27 @@
 package org.example;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
-@Component
+//@Component
+//@Scope("prototype")
 public class ClassicalMusic implements Music{
-    List<String> listClassical = new ArrayList<>(Arrays.asList("Swan Lake: Spanish Dance", "Palladio", "The four seasons"));
+    @PostConstruct
+    public void doMyInit(){
+        System.out.println("Classical music was initialization");
+    }
 
-    private ClassicalMusic(){}
+    @PreDestroy
+    public void doMyDestroy(){
+        System.out.println("Classical music was destroyed");
+    }
 
     @Override
-    public List<String> getSong() {
-        return listClassical;
+    public String getSong() {
+        return "Hungarian Rhapsody";
     }
 }
